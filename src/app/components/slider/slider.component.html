@@ -1,0 +1,12 @@
+<p-carousel [value]="nomPlaying" [numVisible]="1" [numScroll]="1" *ngIf="!loader">
+  <ng-template let-movie pTemplate="item">
+    <div style="text-align: center; width: 100%;" [routerLink]="['/movies-details', movie.id]">
+      <img *ngIf="movie?.backdrop_path"
+           src="https://image.tmdb.org/t/p/original/{{movie?.backdrop_path}}">
+      <img *ngIf="!movie?.backdrop_path" src="assets/images/default-movie.png">
+      <h6>{{ movie?.title }}</h6>
+      <p class="rate"><i class="material-icons">star</i><span>{{movie?.vote_average}}</span> /10</p>
+      <p class="year"><span>{{movie?.release_date | date: 'yyyy'}}</span></p>
+    </div>
+  </ng-template>
+</p-carousel>

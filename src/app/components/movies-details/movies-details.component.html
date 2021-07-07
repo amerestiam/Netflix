@@ -1,0 +1,105 @@
+<div>
+  <div>
+    <div class="items">
+      <img class="lazyload image" src="https://image.tmdb.org/t/p/original/{{ movie?.backdrop_path }}">
+    </div>
+  </div>
+  <div class="box">
+    <div class="name">{{ movie?.title }}</div>
+    <div class="meta">
+      <span><i class="material-icons">star</i></span>
+      <span>{{ movie?.vote_average }} /10</span>
+      <span> {{movie?.vote_count }} Reviews</span>
+      <span> {{movie?.release_date | date: 'yyyy' }}</span>
+      <span> {{movie?.runtime }}</span>
+    </div>
+    <div class="desc">{{ movie?.overview }}</div>
+    <button type="button" class="button button--icon trailer" (click)="openDialogMovie(this.video)">
+      <div><i class="material-icons">play_arrow</i> PLAY NOW</div>
+    </button>
+    <button *ngIf="!isInFavorites" class="button button--icon" (click)="favorite(this.id)">
+      <div><i class="material-icons">star</i> Add to favorites</div>
+    </button>
+    <button *ngIf="isInFavorites" class="button button--icon" (click)="favorite(this.id)">
+      <div><i class="material-icons">star</i> Remove from favorites</div>
+    </button>
+  </div>
+</div>
+
+<div class="p-grid">
+  <div class="p-col-4">
+    <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{ movie?.poster_path }}">
+  </div>
+  <div class="p-col-8">
+    <h2 class="title">Storyline</h2>
+    <p>{{movie?.overview}}</p>
+    <table>
+      <thead>
+      <tr>
+        <th>Released</th>
+        <th>Runtime</th>
+        <th *ngIf="movie?.budget">Budget</th>
+        <th *ngIf="movie?.revenue">Revenue</th>
+        <th *ngIf="movie?.genres.length">Genre</th>
+        <th *ngIf="movie?.status">Status</th>
+        <th *ngIf="movie?.spoken_languages?.length">Language</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{ movie?.release_date }}</td>
+        <td>{{ movie?.runtime }}</td>
+        <td *ngIf="movie?.budget">${{ movie?.budget }}</td>
+        <td *ngIf="movie?.revenue">{{movie?.revenue}}</td>
+        <td *ngIf="movie?.genres.length"><p *ngFor="let genre of movie?.genres"><a
+          routerLink="/genres/{{genre.id}}/{{genre.name}}">{{ genre?.name }}</a></p></td>
+        <td *ngIf="movie?.status">{{movie?.status}}</td>
+        <td *ngIf="movie?.spoken_languages?.length"><p
+          *ngFor="let language of movie?.spoken_languages">{{ language?.name }}</p></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div>
+  <div>
+    <div><h2>Cast</h2></div>
+    <p-carousel [value]="casts" [numVisible]="6" [numScroll]="4" [circular]="true">
+      <ng-template let-cast pTemplate="item">
+        <div>
+          <di>
+            <div>Details</div>
+          </di>
+          <img *ngIf="cast.profile_path"
+               src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{cast?.profile_path}}">
+          <img *ngIf="!cast?.profile_path" src="assets/images/default-movie.png">
+          <h6>{{ cast?.name }}</h6>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+
+  <div>
+    <div>
+      <h2>Recommended Movies</h2>
+    </div>
+    <p-carousel [value]="recomendMovies" [numVisible]="6" [numScroll]="4" [circular]="true">
+      <ng-template let-recomend pTemplate="item">
+        <div [routerLink]="['/movies-details', recomend.id]">
+          <div>
+            <div><i class="material-icons">play_arrow</i> PLAY NOW</div>
+          </div>
+          <img *ngIf="recomend?.poster_path"
+               src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{recomend?.poster_path}}">
+          <img *ngIf="!recomend?.poster_path" src="assets/images/default-movie.png">
+          <h6>{{ recomend?.title }}</h6>
+          <p><i class="material-icons">star</i><span>{{recomend?.vote_average}}</span>
+            /10</p>
+          <div><span>{{recomend?.release_date }}</span></div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+
+</div>

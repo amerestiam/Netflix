@@ -1,0 +1,68 @@
+<!--<div class="title-item">-->
+<!--  <video src="assets/videos/ff9.mp4" controls autoplay muted="muted"></video>-->
+<!--  <img src="assets/images/f9.jpg" alt="Título">-->
+<!--  <div class="items">-->
+<!--    <div class="left-side">-->
+<!--      <button class="button"><i class="material-icons">play_arrow</i></button>-->
+<!--      <h2>fast and furious 9</h2>-->
+<!--      <ul class="infos">-->
+<!--        <li class="relevance">recomondée à 98% </li>-->
+<!--        <li class="age age-18"></li>-->
+
+<!--      </ul>-->
+<!--      <ul class="categories">-->
+
+<!--        <li>Film action</li>-->
+
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<ng-container>
+  <app-slider></app-slider>
+</ng-container>
+<div>
+  <div>
+    <h3>Now Playing Movies</h3>
+    <a [routerLink]="['/movies']" routerLinkActive="router-link-active" class="listing__explore">
+      <strong>Explore All</strong>
+    </a>
+  </div>
+  <p-carousel [value]="nowPlaying" [numVisible]="6" [numScroll]="4" [circular]="true" *ngIf="!loader">
+    <ng-template let-movie pTemplate="item">
+      <div class="listing-item-style" [routerLink]="['/movies-details', movie.id]">
+        <div class="overlay">
+          <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+        </div>
+        <img *ngIf="movie?.poster_path"
+             src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie?.poster_path}}">
+        <img *ngIf="!movie?.poster_path" src="assets/images/default-movie.png">
+        <h6>{{ movie?.title }}</h6>
+        <p class="rate"><i class="material-icons">star</i><span>{{movie?.vote_average}}</span> /10</p>
+        <p class="year"><span>{{movie?.release_date | date: 'yyyy'}}</span>
+        </p>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
+<div>
+  <div>
+    <h3>On TV Shows</h3>
+    <a [routerLink]="['/tv']" routerLinkActive="router-link-active" class="listing__explore">
+      <strong>Explore All</strong>
+    </a>
+  </div>
+  <p-carousel [value]="tvShows" [numVisible]="6" [numScroll]="4" [circular]="true" *ngIf="!loader">
+    <ng-template let-tv pTemplate="item">
+      <div class="listing-item-style" [routerLink]="['/tv-details', tv.id]">
+        <div class="overlay">
+          <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+        </div>
+        <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{tv?.poster_path}}">
+        <h6>{{ tv?.original_name }}</h6>
+        <p class="rate"><i class="material-icons">star</i><span>{{tv?.vote_average}}</span>/10</p>
+        <p class="year"><span>{{tv?.first_air_date | date: 'yyyy'}}</span>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>

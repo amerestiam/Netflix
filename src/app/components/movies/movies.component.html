@@ -1,0 +1,47 @@
+<div>
+  <div>
+    <h3>Trending Movies</h3>
+    <a [routerLink]="['/movies']" routerLinkActive="router-link-active">
+      <strong>Explore All</strong>
+    </a>
+  </div>
+  <p-carousel [value]="nowPlaying" [numVisible]="10" [numScroll]="4" [circular]="true" *ngIf="!loader">
+    <ng-template let-movie pTemplate="item">
+      <div [routerLink]="['/movies-details', movie.id]">
+        <div>
+          <div><i class="material-icons">play_arrow</i> PLAY NOW</div>
+        </div>
+        <img *ngIf="movie?.poster_path"
+             src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie?.poster_path}}">
+        <img *ngIf="!movie?.poster_path" src="assets/images/default-movie.png">
+        <h6>{{ movie?.title }}</h6>
+        <p class="rate"><i class="material-icons">star</i><span>{{movie?.vote_average}}</span> /10</p>
+        <p class="year"><span>{{movie?.release_date | date: 'yyyy'}}</span></p>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
+
+<div>
+  <div>
+    <h3>UpComing Movies</h3>
+    <a [routerLink]="['/movies']" routerLinkActive="router-link-active">
+      <strong>Explore All</strong>
+    </a>
+  </div>
+  <p-carousel [value]="upComing" [numVisible]="10" [numScroll]="4" [circular]="true" *ngIf="!loader">
+    <ng-template let-movie pTemplate="item">
+      <div [routerLink]="['/movies-details', movie.id]">
+        <div>
+          <div><i class="material-icons">play_arrow</i> PLAY NOW</div>
+        </div>
+        <img *ngIf="movie?.poster_path"
+             src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{movie?.poster_path}}">
+        <img *ngIf="!movie?.poster_path" src="assets/images/default-movie.png">
+        <h6>{{ movie?.title }}</h6>
+        <p class="rate"><i class="material-icons">star</i><span>{{movie?.vote_average}}</span> /10</p>
+        <p class="year"><span>{{movie?.release_date | date: 'yyyy'}}</span></p>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>

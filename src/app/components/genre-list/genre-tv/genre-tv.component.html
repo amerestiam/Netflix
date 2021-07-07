@@ -1,0 +1,13 @@
+<div class="subtitle">TV Genre: {{title}}</div>
+<div class="columns is-multiline">
+  <div class="column is-3" *ngFor="let tv of tvGenre">
+    <div class="card" [routerLink]="['/tv-details', tv.id]">
+      <div class="card-content">
+        <div class="image is-4by5">
+          <img [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + tv.poster_path" alt="{{ tv.title }}">
+        </div>
+        {{ tv.title }}
+      </div>
+    </div>
+  </div>
+</div>

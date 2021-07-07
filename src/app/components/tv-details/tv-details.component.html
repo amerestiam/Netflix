@@ -1,0 +1,94 @@
+<div>
+  <div>
+    <div class="items">
+      <img class="lazyload image" src="https://image.tmdb.org/t/p/original/{{ episode?.backdrop_path }}">
+    </div>
+  </div>
+  <div class="box">
+    <div class="name">{{ episode?.name }}</div>
+    <div class="meta">
+      <span><i class="material-icons">star</i></span>
+      <span>{{ episode?.vote_average }} /10</span>
+      <span> {{episode?.vote_count }} Reviews</span>
+      <span> Season {{ episode?.number_of_seasons }}</span>
+      <span> {{ episode?.first_air_date | date: 'yyyy' }}</span>
+    </div>
+    <div class="desc">{{ episode?.overview }}</div>
+    <button type="button" class="button button--icon trailer" (click)="openDialogTv(this.video)">
+      <div><i class="material-icons">play_arrow</i> PLAY NOW</div>
+    </button>
+    <button *ngIf="!isInFavorites" class="button button--icon" (click)="favorite(this.id)">
+      <div><i class="material-icons">star</i> Add to favorites</div>
+    </button>
+    <button *ngIf="isInFavorites" class="button button--icon" (click)="favorite(this.id)">
+      <div><i class="material-icons">star</i> Remove from favorites</div>
+    </button>
+  </div>
+</div>
+
+<div class="p-grid">
+  <div class="p-col-4">
+    <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{ episode?.poster_path }}">
+  </div>
+  <div class="p-col-8">
+    <h2 class="title">Storyline</h2>
+    <p>{{episode?.overview}}</p>
+    <table>
+      <thead>
+      <tr>
+        <th *ngIf="episode?.first_air_date">First Aired</th>
+        <th *ngIf="episode?.last_air_date">Last Aired</th>
+        <th *ngIf="episode?.episode_run_time">Runtime</th>
+        <th *ngIf="episode?.created_by.length">Creater</th>
+        <th *ngIf="episode?.genres.length">Genre</th>
+        <th *ngIf="episode?.number_of_seasons">Seasons</th>
+        <th *ngIf="episode?.original_language">Language</th>
+        <th *ngIf="episode?.status">Status</th>
+        <th *ngIf="episode?.networks?.length">Network</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td *ngIf="episode?.first_air_date">{{episode?.first_air_date }}</td>
+        <td *ngIf="episode?.last_air_date">{{episode?.last_air_date }}</td>
+        <td *ngIf="episode?.episode_run_time">{{ episode?.episode_run_time}}</td>
+        <td *ngIf="episode?.created_by.length"><p *ngFor="let creater of episode?.created_by"><a
+          [routerLink]="['/person/', creater.id]">{{ creater?.name }}</a></p></td>
+        <td *ngIf="episode?.genres.length"><p *ngFor="let genre of episode?.genres"><a
+          routerLink="/genres-tv/{{genre.id}}/{{genre.name}}">{{ genre?.name }}</a></p></td>
+        <td *ngIf="episode?.number_of_seasons">{{ episode?.number_of_seasons }}</td>
+        <td *ngIf="episode?.original_language">{{ episode?.original_language}} </td>
+        <td *ngIf="episode?.status"> {{ episode?.status }}</td>
+        <td *ngIf="episode?.networks?.length"><p *ngFor="let netwok of episode?.networks">{{ netwok?.name }}</p></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div>
+
+
+  <div>
+    <div>
+      <h2>Recommended Movies</h2>
+    </div>
+    <p-carousel [value]="recomendEpisode" [numVisible]="6" [numScroll]="4" [circular]="true">
+      <ng-template let-recomend pTemplate="item">
+        <div class="listing-item-style" [routerLink]="['/tv-details', recomend.id]">
+          <div class="overlay">
+            <div class="hover"><i class="material-icons">play_arrow</i> PLAY NOW</div>
+          </div>
+          <img *ngIf="recomend?.poster_path"
+               src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/{{recomend?.poster_path}}">
+          <img *ngIf="!recomend?.poster_path" src="assets/images/default-movie.png">
+          <h6>{{ recomend?.name }}</h6>
+          <p class="rate"><i class="material-icons">star</i><span>{{recomend?.vote_average}}</span>
+            /10</p>
+          <div class="year"><span>{{recomend?.release_date | date: 'yyyy'}}</span></div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+
+</div>

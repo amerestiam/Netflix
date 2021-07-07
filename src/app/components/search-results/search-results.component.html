@@ -1,0 +1,34 @@
+<div class="container is-fluid">
+  <div *ngIf="movies">
+    <p class="title is-6">Movies</p>
+    <div class="columns is-multiline">
+      <div class="column is-3" *ngFor="let movie of movies">
+        <div class="card" [routerLink]="['/movies-details', movie.id]">
+          <div class="card-content">
+            <div class="image is-4by5">
+              <img [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + movie.poster_path" [alt]="movie.title">
+            </div>
+            {{ movie.title }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container is-fluid">
+  <div *ngIf="tvShows">
+    <p class="title is-6">TV Shows</p>
+    <div class="columns is-multiline">
+      <div class="column is-3" *ngFor="let show of tvShows">
+        <div class="card" [routerLink]="['/tv-details', show.id]">
+          <div class="card-content">
+            <div class="image is-4by5">
+              <img [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + show.poster_path" [alt]="show.name">
+            </div>
+            {{ show.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

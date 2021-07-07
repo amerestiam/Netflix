@@ -1,0 +1,13 @@
+<div class="subtitle">Movies Genre: {{title}}</div>
+<div class="columns is-multiline">
+  <div class="column is-3" *ngFor="let movie of moviesGenre">
+    <div class="card" [routerLink]="['/movies-details', movie.id]">
+      <div class="card-content">
+        <div class="image is-4by5">
+          <img [src]="'https://image.tmdb.org/t/p/w370_and_h556_bestv2/' + movie.poster_path" alt="{{ movie.title }}">
+        </div>
+        {{ movie.title }}
+      </div>
+    </div>
+  </div>
+</div>
